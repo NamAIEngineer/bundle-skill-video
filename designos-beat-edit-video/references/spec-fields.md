@@ -1,0 +1,11 @@
+# Spec fields
+- `fps, bpm, beats_per_bar, total, size` - timeline. total must equal the last scene end.
+- `palette` accent/bg/text/grey/sub (RGB). `fonts.sans|mono` - candidate paths, first existing one is used.
+- `window` x, y, scale, raw_size, radius - where the recorded app window sits in the 1920x1080 frame.
+- `takes` - `{id: {file, seconds}}` raw recordings (looked up in `--root`).
+- `scenes` - `[name, video_start, video_end, take_id]`; take 0 = generated scene (intro/outro).
+- `cards[]` (one per edit): `name, scene, T, tc, hit, td, ts, te, N, row, pt, old, new, box, pulse`
+  - `T` bar line; `N` = len(new); `row` sidebar y (0-1); `pt` text point (0-1); `box` card rect in the raw window (for the payoff pulse); `pulse` payoff time.
+  - optional: `scene_in [video, raw]` first anchor, `dbls [[video, raw],...]` custom double-click times with `tstart`, `extra_anchors`.
+- `payoff` - menu/fit click times and positions, `caption_from` = when captions switch to the payoff recap.
+- `cursor` - sidebar_x, start. `intro`/`outro` - texts and rise times. `audio` - seed, groove_start/end, chords, bass, fade, peak.
