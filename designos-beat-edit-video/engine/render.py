@@ -302,7 +302,7 @@ def render_scene(a):
         else:
             app_frame(img, next(frames))
             pulses(img, t)
-            draw_cursor(img, t)
+            if SPEC.get("cursor", {}).get("overlay", True): draw_cursor(img, t)
             if t < CAP_FROM:
                 caption(img, t)
             else:
@@ -313,7 +313,8 @@ def render_scene(a):
             flash(img, t, tl.WHOOSH, 0.5, 0.16)
             hud(img, t)
         enc.stdin.write(img.tobytes())
-    enc.stdin.close(); enc.wait()
+    enc.stdin.close()
+    if enc.wait() != 0: raise RuntimeError("Video encoder failed")
     os.rename(tmp, out)
     return out
 

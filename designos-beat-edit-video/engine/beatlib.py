@@ -25,6 +25,14 @@ class Timeline:
         self.PAY = s.get("payoff")
         self.CARDS = [self._card(c) for c in s["cards"]]
         self.SCENE_ANCH = {c["scene"]: self._fix(self.anchors(c)) for c in self.CARDS}
+        for name, anchors in s.get("footage_anchors", {}).items():
+            if name in self.SCENE_ANCH:
+                raise ValueError("Scene cannot have both card and footage anchors")
+            if len(anchors) < 2 or any(len(a) != 2 for a in anchors):
+                raise ValueError("Footage anchors require at least two [video, raw] pairs")
+            if any(b[0] <= a[0] or b[1] < a[1] for a, b in zip(anchors, anchors[1:])):
+                raise ValueError("Footage anchors must move forward")
+            self.SCENE_ANCH[name] = anchors
         self.WPS = self._waypoints()
         self.CLICKS = self._clicks()
         self.HITS = [c["T"] for c in self.CARDS] + ([self.PAY["fit"] + 0.08] if self.PAY else [])
@@ -37,7 +45,7 @@ class Timeline:
         c["clickT"] = c["T"] - c["zd"]
         if not c.get("dbls"):
             c["dbls"] = [[c["T"] + 1.0, c["td"]]]
-            c["tstart"] = c["T"] + 1.5
+            c["tstart"] = c["T"] + np.ceil(1.8 / self.CH) * self.CH
         c["chars"] = [c["tstart"] + self.CH * i for i in range(c["N"])]
         c["tend"] = c["chars"][-1]
         c["dbl_video"] = [d[0] for d in c["dbls"]]

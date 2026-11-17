@@ -24,3 +24,23 @@ python3 engine/run.py all spec.json --root /path/to/raw --out /path/to/output
 ```
 
 Đọc [phân tích bundle](ANALYSIS.md) trước khi chạy. Đây là source bundle, chưa phải bản cài một lệnh. Giữ nguyên notices/attribution trong nguồn; bundle chưa có giấy phép phân phối tổng thể, không mặc định coi là open-source.
+
+## Portable setup
+
+```sh
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+# Optional voice environment:
+python3 -m venv .venv-voice
+.venv-voice/bin/pip install -r requirements-voice.txt
+```
+
+Install ffmpeg/ffprobe through your platform package manager. Recording requires macOS and Openscreen; rendering supports platforms with Python, ffmpeg and fonts installed. For Windows use the equivalent `.venv/Scripts/python` paths.
+
+Recorder discovers `openscreen` on PATH, then standard macOS Applications locations. Override `OPENSCREEN` with the executable path if needed; `PYTHON` selects its Python interpreter. `tools/record.sh OUTPUT TAKE SECONDS` refuses existing take names, reserves a lock, and copies only the media named by both that recording's completion event and project. Failed/incomplete recordings remain in their original location with logs; choose a new take name after investigating.
+
+Longform fonts: set `FONT_DIR` for Inter OTF/TTF; otherwise system Arial/DejaVu is used. Exact typography differs by platform. Keep fresh raw footage and measured timings outside Git.
+
+Non-text scenes may declare `footage_anchors: {"scene": [[video_seconds, raw_seconds], ...]}` in a spec without inventing text/double-click events. Set `cursor.overlay` false to omit the synthetic cursor. This is an explicit spec input; ideate build does not generate these anchors automatically.
+
+Tests: `python3 -m unittest discover -s tests -v`. See [integration evidence](TESTING.md) for actual recording/TTS/render results and scope.

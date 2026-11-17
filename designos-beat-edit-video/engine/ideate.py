@@ -43,12 +43,12 @@ def plan(a):
     first = intro_bars + rs.choice([1, 2])
     edits, bar_i = [], first
     for i in range(n):
-        edits.append({"index": i + 1, "bar": bar_i, "T": round(bar_i * bar, 4)}); bar_i += gap
+        edits.append({"index": i + 1, "bar": bar_i, "T": bar_i * bar}); bar_i += gap
     payoff_bars = rs.choice([2, 3]); outro_bars = 2
     total_bars = bar_i - gap + 2 + payoff_bars + outro_bars
     tot = round(total_bars * bar, 3)
     return {"seed": seed, "concept": {"name": concept[0], "hook": concept[1], "outro": concept[2], "device": concept[3]},
-            "structure": struct, "music": {"style": style, "seed": seed, "peak": 0.8}, "bpm": bpm, "bar_seconds": round(bar, 4),
+            "structure": struct, "music": {"style": style, "seed": seed, "peak": 0.8}, "bpm": bpm, "bar_seconds": bar,
             "palette": pal, "theme": theme, "edits": edits, "intro_bars": intro_bars, "payoff_bars": payoff_bars,
             "outro_bars": outro_bars, "total": tot,
             "marketing": {"feature": "<one shipped design:os studio feature this video sells>", "viewer_pain": "<who and what pain>", "promise": "<one line>", "cta": "<call to action: FREE, try design:os studio>", "guardrails": "FREE; source-available (never open-source); no Figma killer; only shipped features; every claim backed by real footage"},
@@ -109,7 +109,7 @@ def build(plan_p, times_p, out):
     prev = sc[0][2]; cards = []
     for i, e in enumerate(p["edits"]):
         c = dict(t["cards"][i]); c["T"] = e["T"]
-        end = round(e["T"] + (p["edits"][i + 1]["T"] - e["T"] if i + 1 < len(p["edits"]) else 2 * bar), 4)
+        end = e["T"] + (p["edits"][i + 1]["T"] - e["T"] if i + 1 < len(p["edits"]) else 2 * bar)
         c.setdefault("scene", "E%d" % (i + 1)); c.setdefault("pulse", None)
         sc.append([c["scene"], round(prev, 4), end, c.get("take", 1)]); prev = end; cards.append(c)
     total = p["total"]; start_out = round(total - p["outro_bars"] * bar, 4)

@@ -1,6 +1,6 @@
 # Voiceover (approved by Nam 2026-11-16): VieNeu-TTS v3 Turbo, voice "Hải Đăng"
 
-Install (Mac, once): `python3 -m venv venv && venv/bin/pip install vieneu` (CPU/ONNX, 48 kHz). Existing venv: `/Users/nam/orca/workspaces/voice-test-20261116/venv2`.
+Install (Mac, once): `python3 -m venv venv && venv/bin/pip install vieneu` (CPU/ONNX, 48 kHz). Existing venv: `.venv-voice/bin/python`.
 Generate: `venv/bin/python longform/gen_tts.py script_tts.json vo/ [chapter_id ...]` (~0.3x real time on the Mac Mini M1).
 - Sentence by sentence, 0.18 s exact zeros between sentences; captions are timed from those gaps. Display text and TTS text must have the same sentence count (`longform/script2.py` asserts it).
 - Not used: VietVoice-TTS (far too slow), cloning Jang (only with his written OK).

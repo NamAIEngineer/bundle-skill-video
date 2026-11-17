@@ -26,3 +26,7 @@ SKILL.md là hướng dẫn agent. Engine ngắn dùng plan → times đo từ f
 - Chưa kiểm tra ghi hình, TTS, render end-to-end hoặc các tuyên bố PSNR/audio giống mẫu.
 
 Giữ nguyên source bundle; README và tài liệu này bổ sung hướng dẫn, không sửa engine.
+
+## Update 2026-11-17
+
+Recorder ownership, executable discovery, portable longform fonts, generated beat precision, generated typing grid and encoder exit checks have been updated. New footage anchors support non-text scenes without fabricated edits. Longform maximum zoom was reduced to 1.6. Earlier limitations above describe the imported baseline; see README and TESTING.md for current behavior and verified scope. License and authored longform chapter mappings remain unchanged.

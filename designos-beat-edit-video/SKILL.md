@@ -55,13 +55,13 @@ The Prompt Motion Bridge tools (`Prompt_Motion_Bridge__recommend_motion_referenc
 
 ## Long-form tutorial (3-5 min, Vietnamese voiceover, YouTube)
 First one approved by Nam on 2026-11-16 (`final_v3.mp4`, 4:21: 6-step process from a .fig template to desktop+mobile screens). Treat it only as an example: the next long video needs a different topic, footage, structure and look.
-Starter code: `longform/` in this skill (also on the Mac at `/Users/nam/orca/workspaces/designos-5min-20261116/longform-engine/`): README.md, script2.py, gen_tts.py, lib.py, build.py, audio.py. Copy it into a new workspace and change it: chapters, layout, card and caption design, background, palette, motion (from Prompt Motion), music style and tempo. Never ship the same look twice.
+Starter code: `longform/` in this skill (also on the Mac at `longform/`): README.md, script2.py, gen_tts.py, lib.py, build.py, audio.py. Copy it into a new workspace and change it: chapters, layout, card and caption design, background, palette, motion (from Prompt Motion), music style and tempo. Never ship the same look twice.
 
 **Ideas:** each video picks its own angle and format, e.g. a challenge against a timer, before/after makeover, one feature deep-dive, "3 mistakes beginners make", redesign a real-looking screen, build a mini design system, mobile-first, speed-run, Q&A. Every chapter must show something the viewer wants; a chapter that is only "a mistake I made" was rejected as irrelevant. Shipped features only; check in the app before promising one (Play preview at top-right ▷ works and looks great).
 
 **Footage:** record fresh with Openscreen for every video (different template or file, different screens, different edits). Openscreen records only the app window, not native macOS dialogs: show the file picker as a text callout, never a mock-up. Select text layers in Layers, press Return, check the text is highlighted, then type; typing into an unfocused field fires shortcuts. Before the voiceover claims an edit, check the app state again (an undo once silently reverted a button text).
 
-**Voice (approved by Nam): VieNeu-TTS v3 Turbo, preset "Hải Đăng".** Runs on the Mac (`/Users/nam/orca/workspaces/voice-test-20261116/venv2`, `gen_tts.py`), 48 kHz, ~0.3x real time. Do not clone Jang's voice without his written OK.
+**Voice (approved by Nam): VieNeu-TTS v3 Turbo, preset "Hải Đăng".** Runs on the Mac (`.venv-voice/bin/python`, `gen_tts.py`), 48 kHz, ~0.3x real time. Do not clone Jang's voice without his written OK.
 - Generate sentence by sentence with 0.18 s of exact zeros between sentences; captions are timed from those gaps, so display text and TTS text must have the same sentence count.
 - Keep two texts: display (captions, correct spelling) and TTS (respelled). Approved: "Design OS Studio" -> "Đi-giai Âu-ét Studio" (keep "Studio" in English), "Figma" -> "Phích-ma", ".fig" -> "phích", "megabyte" -> "mê-ga-bai". Never ALL CAPS "DESIGN OS" (spelled letter by letter).
 - Nam rejects wrong English pronunciation: speak Vietnamese for UI words (bảng lớp, vùng vẽ, bảng thuộc tính, phím xuống dòng, phím thoát, màu nền); English UI strings go only in callouts.

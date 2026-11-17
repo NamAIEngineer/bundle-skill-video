@@ -1,5 +1,5 @@
 # Run on the Mac with the VieNeu venv:
-#   /Users/nam/orca/workspaces/voice-test-20261116/venv2/bin/python gen_tts.py script_tts.json vo/
+#   .venv-voice/bin/python gen_tts.py script_tts.json vo/
 # Splits each chapter into sentences, inserts 0.18 s of exact zeros between them
 # (build.py finds caption boundaries from those zero gaps).
 import json, re, sys, os, time, soundfile as sf, numpy as np

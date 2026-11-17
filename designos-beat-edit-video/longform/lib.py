@@ -2,8 +2,18 @@ import numpy as np, json, subprocess, math, re, os, base64, io
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 W, H, FPS = 1920, 1080, 30
-FD = "/usr/share/fonts/opentype/inter/"
-def F(sz, w="Bold"): return ImageFont.truetype(FD + f"Inter-{w}.otf", sz)
+def F(sz, w="Bold"):
+    candidates = []
+    if os.environ.get("FONT_DIR"):
+        candidates.append(os.path.join(os.environ["FONT_DIR"], f"Inter-{w}.otf"))
+        candidates.append(os.path.join(os.environ["FONT_DIR"], f"Inter-{w}.ttf"))
+    candidates += [f"/usr/share/fonts/opentype/inter/Inter-{w}.otf",
+                   "/System/Library/Fonts/Supplemental/Arial.ttf",
+                   "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+                   os.path.join(os.environ.get("WINDIR", "C:/Windows"), "Fonts", "arial.ttf")]
+    for path in candidates:
+        if os.path.isfile(path): return ImageFont.truetype(path, sz)
+    raise RuntimeError("No usable font found; set FONT_DIR to a directory containing Inter fonts")
 _fc = {}
 def font(sz, w="Bold"):
     k = (sz, w)
